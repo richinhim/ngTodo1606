@@ -41,4 +41,8 @@ export class AdminService {
     return this.http.put(this.SERVER + `/api/news`, params,
       {headers: this.headers});
   }
+
+  removeNews(params: number) {
+    return this.http.delete(this.SERVER + `/api/news?news_id=${params}`);
+  }
 }
