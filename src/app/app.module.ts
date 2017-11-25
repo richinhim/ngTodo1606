@@ -7,7 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { JqueryComponent } from './jquery/jquery.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {
-  MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule,
+  MatSnackBarModule,
   MatToolbarModule
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -18,6 +19,12 @@ import {UserService} from "./user.service";
 import {HttpClientModule} from "@angular/common/http";
 import { HighlightDirective } from './highlight.directive';
 import { MydatePipe } from './mydate.pipe';
+import { LoginComponent } from './auth/login/login.component';
+import {AngularFireModule} from "angularfire2";
+import {environment} from "../environments/environment";
+import {AngularFireAuth} from "angularfire2/auth";
+import { RegisterComponent } from './auth/register/register.component';
+import {AuthGuardService} from "./auth/auth-guard.service";
 
 @NgModule({
   declarations: [
@@ -27,7 +34,9 @@ import { MydatePipe } from './mydate.pipe';
     JqueryComponent,
     AngularComponent,
     HighlightDirective,
-    MydatePipe
+    MydatePipe,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -43,8 +52,11 @@ import { MydatePipe } from './mydate.pipe';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    MatCheckboxModule,
+    MatSnackBarModule
   ],
-  providers: [UserService],
+  providers: [UserService,  AngularFireAuth, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
